@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Campus — Ground Floor (L-shape) AR + Shortest Path</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header><h1>Smart Campus — Ground Floor (L-shape) AR + Shortest Path</h1></header>
+
+  <div class="wrap">
+    <div class="card controls-panel">
+      <strong>Controls</strong>
+      <p>Click on the map to set your current position. Or select Start & Destination
+         and click <em>Compute Shortest Path</em>. On mobile use <em>Start AR</em> to allow
+         camera and orientation access.</p>
+
+      <label>Start node</label>
+      <select id="start"></select>
+
+      <label>Destination</label>
+      <select id="end"></select>
+
+      <div class="controls">
+        <button id="compute" class="small">Compute Shortest Path</button>
+        <button id="clear" class="small">Clear</button>
+      </div>
+
+      <div class="controls">
+        <button id="startAR" class="small">Start AR</button>
+        <button id="stopAR" class="small">Stop AR</button>
+      </div>
+
+      <div class="legend card">
+        <div><span class="dot" style="background:var(--accent)"></span>Nodes</div>
+        <div><span class="dot" style="background:#3ac1ff"></span>Path</div>
+        <div><span class="dot" style="background:#999"></span>Current Position</div>
+      </div>
+
+      <label>Path output</label>
+      <div id="pathout" class="card pathout"></div>
+
+      <label>Notes</label>
+      <ul class="notes">
+        <li>Serve over <code>localhost</code> or HTTPS (GitHub Pages works).</li>
+        <li>Use a modern mobile browser for AR.</li>
+        <li>Click map repeatedly to simulate walking; arrow points to next waypoint.</li>
+      </ul>
+    </div>
+
+    <div id="mapwrap" class="card">
+      <video id="camera" autoplay muted playsinline></video>
+      <div id="overlay">
+        <div id="arrow" class="arrow">⬆️</div>
+      </div>
+
+      <svg id="svgmap" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+        <g id="edges"></g>
+        <g id="pathlayer"></g>
+        <g id="nodes"></g>
+      </svg>
+    </div>
+  </div>
+
+  <footer>Prototype — L-shaped ground floor. Click to set position and try AR.</footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
