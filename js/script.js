@@ -1,22 +1,30 @@
 /* Smart Campus – AR + Shortest Path JS */
 
 const nodes = { 
-  Waiting:      {id:'Waiting',      name:'Waiting Room',      x:360, y:120},
-  Lab1:         {id:'Lab1',         name:'Lab 1',             x:520, y:120},
-  Lab2:         {id:'Lab2',         name:'Lab 2',             x:700, y:120},
-  Lab3:         {id:'Lab3',         name:'Lab 3',             x:880, y:120},
-  Millennium:   {id:'Millennium',   name:'Millennium Block',  x:1000,y:120},
-  Corner:       {id:'Corner',       name:'Corridor Corner',   x:1000,y:200},
-  Principal:    {id:'Principal',    name:'Principal Chamber', x:80,  y:120},
-  VicePrincipal:{id:'VicePrincipal',name:'Vice Principal',   x:220, y:120},
-  Lab4:         {id:'Lab4',         name:'Lab 4',             x:1000,y:320},
-  Lab5:         {id:'Lab5',         name:'Lab 5',             x:1000,y:440},
-  Lab6:         {id:'Lab6',         name:'Lab 6',             x:1000,y:560},
-  Seminar:      {id:'Seminar',      name:'Seminar Hall',      x:1000,y:640},
-  StaffEnd:     {id:'StaffEnd',     name:'Staff Rooms',       x:920, y:640},
-  Rest:         {id:'Rest',         name:'Rest Room',         x:1080,y:640},
-  Stairs:       {id:'Stairs',       name:'Stairs',            x:1160,y:560},
-  Lift:         {id:'Lift',         name:'Lift',              x:1160,y:440}
+  // LEFT HORIZONTAL CORRIDOR (Y = 500)
+  BRest:        {id:'BRest',        name:'Boys Rest Room',   x:80,  y:500},
+  Lab1:         {id:'Lab1',         name:'Lab 1',            x:200, y:500},
+  StaffLeft:    {id:'StaffLeft',    name:'Staff Room',       x:320, y:500},
+  Lab2:         {id:'Lab2',         name:'Lab 2',            x:440, y:500},
+  Lab3:         {id:'Lab3',         name:'Lab 3',            x:560, y:500},
+  Waiting:      {id:'Waiting',      name:'Waiting Room',     x:680, y:500},
+  VicePrincipal:{id:'VicePrincipal',name:'Vice Principal',   x:800, y:500},
+  Principal:    {id:'Principal',    name:'Principal Chamber',x:900, y:500},
+
+  // CORNER → MILLENNIUM
+  Millennium:   {id:'Millennium',   name:'Millennium Block', x:1000,y:500},
+
+  // VERTICAL CORRIDOR (UP from Millennium)
+  Lab4:         {id:'Lab4',   name:'Lab 4',          x:1000, y:420},
+  Lab5:         {id:'Lab5',   name:'Lab 5',          x:1000, y:340},
+  Lab6:         {id:'Lab6',   name:'Lab 6',          x:1000, y:260},
+  Seminar:      {id:'Seminar',name:'Seminar Hall',   x:1000, y:180},
+  StaffDown:    {id:'StaffDown',name:'Staff Rooms',  x:1000, y:100},
+  GRest:        {id:'GRest', name:'Girls Rest Room', x:1000, y:40},
+
+  // Right-side attachments
+  Lift:         {id:'Lift',         name:'Lift',    x:1080, y:340},
+  StairsRight:  {id:'StairsRight',  name:'Stairs',  x:1080, y:260}
 };
 
 // --- Define all edges as an array of pairs ---
@@ -27,25 +35,27 @@ function distance(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
 
 // Build adjacency
 const edges = [
-  ['Waiting','Lab1'],
-  ['Lab1','Lab2'],
+ // HORIZONTAL
+  ['BRest','Lab1'],
+  ['Lab1','StaffLeft'],
+  ['StaffLeft','Lab2'],
   ['Lab2','Lab3'],
-  ['Lab3','Millennium'],
-  ['Millennium','Corner'],
-  ['Principal','VicePrincipal'],
-  ['VicePrincipal','Waiting'],
-  ['Corner','Lab4'],
+  ['Lab3','Waiting'],
+  ['Waiting','VicePrincipal'],
+  ['VicePrincipal','Principal'],
+  ['Principal','Millennium'],
+
+  // VERTICAL
+  ['Millennium','Lab4'],
   ['Lab4','Lab5'],
   ['Lab5','Lab6'],
   ['Lab6','Seminar'],
-  ['Waiting','Lab4'],
-  ['Lab1','Lab5'],
-  ['Lab2','Lab6'],
-  ['Lab3','Seminar'],
-  ['Seminar','StaffEnd'],
-  ['Seminar','Rest'],
+  ['Seminar','StaffDown'],
+  ['StaffDown','GRest'],
+
+  // Right side attachments
   ['Lift','Lab5'],
-  ['Stairs','Lab6']
+  ['StairsRight','Lab6']
 ];
 
 // --- Utility for distance ---
@@ -263,3 +273,4 @@ setInterval(()=>{
     currentStepIndex++; updateNextTarget();
   }
 },700);
+
