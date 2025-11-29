@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login - BITM</title>
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+body {
+  background: linear-gradient(135deg, #0b76ef, #3ac1ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial;
+}
+
+.login-box {
+  width: 360px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+h2 {
+  text-align: center;
+  color: #0b76ef;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #0b76ef;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+  <h2>Welcome to BITM</h2>
+
+  <label>Select User Type</label>
+  <select id="type">
+    <option value="visitor">Visitor</option>
+    <option value="student">Student</option>
+    <option value="faculty">Faculty</option>
+  </select>
+
+  <div id="form-area"></div>
+
+  <button onclick="loginUser()">Continue →</button>
+</div>
+
+<script src="js/login.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  updateForm();
+  document.getElementById("type").addEventListener("change", updateForm);
+});
+
+function updateForm() {
+  const type = document.getElementById("type").value;
+  let html = "";
+
+  if (type === "visitor") {
+    html = `
+      <label>Name</label>
+      <input id="name">
+      <label>Phone Number</label>
+      <input id="phone">
+    `;
+  }
+  else if (type === "student") {
+    html = `
+      <label>Name</label>
+      <input id="name">
+      <label>USN</label>
+      <input id="usn">
+      <label>Branch</label>
+      <input id="branch">
+    `;
+  }
+  else if (type === "faculty") {
+    html = `
+      <label>Name</label>
+      <input id="name">
+      <label>Employee ID</label>
+      <input id="emp">
+      <label>Branch</label>
+      <input id="branch">
+    `;
+  }
+
+  document.getElementById("form-area").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
